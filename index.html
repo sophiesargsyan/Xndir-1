@@ -3,28 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <title>Document</title>
     <style>
-        html, body {
-            height: 100%;
+        .prompt, .message {
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            position: relative;
         }
-        main {
-            margin-top: 50px;
-            margin-bottom: 50px;
-        } 
+        .close-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <div style="margin: 5px" class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+
+    <div class="prompt">
+        This is a prompt message.
+        <span class="close-btn" onclick="closePrompt(this)">x</span>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+
+    <div>
+        <button id="startBtn">Start</button>
+        <button id="endBtn">End</button>
+        <span id="timeElapsed">0</span> ms
+    </div>
+
+    <div id="messages">
+        <div class="message">
+            Message 1 <span class="close-btn" onclick="closeMessage(this)">x</span>
+        </div>
+        <div class="message">
+            Message 2 <span class="close-btn" onclick="closeMessage(this)">x</span>
+        </div>
+        <div class="message">
+            Message 3 <span class="close-btn" onclick="closeMessage(this)">x</span>
+        </div>
+        <div class="message">
+            Message 4 <span class="close-btn" onclick="closeMessage(this)">x</span>
+        </div>
+        <div class="message">
+            Message 5 <span class="close-btn" onclick="closeMessage(this)">x</span>
+        </div>
+    </div>
+    <button onclick="addNewMessage()">Add New</button>
+
+    <script>
+        function closePrompt(element) {
+            element.parentElement.style.display = 'none';
+        }
+
+        let startTime, endTime;
+        document.getElementById('startBtn').addEventListener('click', function() {
+            startTime = new Date().getTime();
+            document.getElementById('timeElapsed').innerText = '0';
+        });
+
+        document.getElementById('endBtn').addEventListener('click', function() {
+            endTime = new Date().getTime();
+            let timeElapsed = endTime - startTime;
+            document.getElementById('timeElapsed').innerText = timeElapsed;
+        });
+
+        function closeMessage(element) {
+            element.parentElement.remove();
+        }
+
+        function addNewMessage() {
+            let messageContainer = document.getElementById('messages');
+            let newMessage = document.createElement('div');
+            newMessage.className = 'message';
+            newMessage.innerHTML = 'New Message <span class="close-btn" onclick="closeMessage(this)">x</span>';
+            messageContainer.appendChild(newMessage);
+        }
+    </script>
+
 </body>
 </html>
